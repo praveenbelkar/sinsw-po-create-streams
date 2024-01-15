@@ -1,0 +1,319 @@
+{
+	"type": "record",
+	"name": "CreatePurchaserOrder",
+	"namespace": "education.sinsw.sap.inbound.avro_schemas",
+	"fields": [
+		{
+			"name": "SourceHeader",
+			"type": {
+				"type": "record",
+				"name": "SourceHeaderType",
+				"fields": [
+					{
+						"name": "TrackingID",
+						"type": "string"
+					},
+					{
+						"name": "CreationDateTime",
+						"type": "string"
+					},
+					{
+						"name": "Service",
+						"type": "string"
+					},
+					{
+						"name": "User",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "POHeader",
+			"type": {
+				"type": "record",
+				"name": "POHeaderType",
+				"fields": [
+					{
+						"name": "PurchaseOrderText",
+						"type": "string"
+					},
+					{
+						"name": "Supplier",
+						"type": "string"
+					},
+					{
+						"name": "CompanyCode",
+						"type": {
+							"type": "fixed",
+							"name": "CompanyCodeType",
+							"size": 4
+						}
+					},
+					{
+						"name": "PaymentTerms",
+						"type": [
+							"null",
+							{
+								"type": "fixed",
+								"name": "PaymentTermsType",
+								"size": 4
+							}
+						],
+						"default": null
+					},
+					{
+						"name": "ContractID",
+						"type": "string"
+					},
+					{
+						"name": "ContractSegment",
+						"type": {
+							"type": "fixed",
+							"name": "ContractSegmentType",
+							"size": 4
+						}
+					},
+					{
+						"name": "SendToSupplier",
+						"type": {
+							"type": "enum",
+							"name": "SendToSupplierType",
+							"symbols": [
+								"Y",
+								"N"
+							]
+						}
+					},
+					{
+						"name": "CreatedByUser",
+						"type": [
+							"null",
+							"string"
+						],
+						"default": null
+					},
+					{
+						"name": "Requester",
+						"type": {
+							"type": "record",
+							"name": "RequesterType",
+							"fields": [
+								{
+									"name": "RequesterID",
+									"type": "string"
+								},
+								{
+									"name": "RequesterPosition",
+									"type": [
+										"null",
+										{
+											"type": "fixed",
+											"name": "RequesterPositionType",
+											"size": 8
+										}
+									],
+									"default": null
+								}
+							]
+						}
+					},
+					{
+						"name": "GoodsRecipient",
+						"type": {
+							"type": "record",
+							"name": "GoodsRecipientType",
+							"fields": [
+								{
+									"name": "GoodsRecipientID",
+									"type": "string"
+								},
+								{
+									"name": "GRPosition",
+									"type": [
+										"null",
+										{
+											"type": "fixed",
+											"name": "GRPositionType",
+											"size": 8
+										}
+									],
+									"default": null
+								}
+							]
+						}
+					},
+					{
+						"name": "Approver",
+						"type": {
+							"type": "record",
+							"name": "ApproverType",
+							"fields": [
+								{
+									"name": "ApproverID",
+									"type": "string"
+								},
+								{
+									"name": "ApproverPosition",
+									"type": [
+										"null",
+										{
+											"type": "fixed",
+											"name": "ApproverPositionType",
+											"size": 8
+										}
+									],
+									"default": null
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "PurchaseOrderitems",
+			"type": {
+				"type": "array",
+				"items": {
+					"type": "record",
+					"name": "PurchaseOrderitemsType",
+					"fields": [
+						{
+							"name": "PurchaseOrderItemNo",
+							"type": {
+								"type": "fixed",
+								"name": "PurchaseOrderItemNoType",
+								"size": 10
+							}
+						},
+						{
+							"name": "ItemType",
+							"type": "string"
+						},
+						{
+							"name": "PurchaseOrderItemText",
+							"type": "string"
+						},
+						{
+							"name": "OrderQuantity",
+							"type": "double"
+						},
+						{
+							"name": "NetPriceAmount",
+							"type": "double"
+						},
+						{
+							"name": "PurchaseOrderQuantityUnit",
+							"type": "string"
+						},
+						{
+							"name": "NetPriceQuantity",
+							"type": [
+								"null",
+								"int"
+							],
+							"default": null
+						},
+						{
+							"name": "Deliverydate",
+							"type": "string"
+						},
+						{
+							"name": "ValidityStartDate",
+							"type": "string"
+						},
+						{
+							"name": "ValidityEndDate",
+							"type": "string"
+						},
+						{
+							"name": "TaxCode",
+							"type": {
+								"type": "fixed",
+								"name": "TaxCodeType",
+								"size": 2
+							}
+						},
+						{
+							"name": "Plant",
+							"type": {
+								"type": "fixed",
+								"name": "PlantType",
+								"size": 4
+							}
+						},
+						{
+							"name": "StorageLocation",
+							"type": {
+								"type": "fixed",
+								"name": "StorageLocationType",
+								"size": 4
+							}
+						},
+						{
+							"name": "ProductCategory",
+							"type": "string"
+						},
+						{
+							"name": "AccountAssignment",
+							"type": {
+								"type": "array",
+								"items": {
+									"type": "record",
+									"name": "AccountAssignmentType",
+									"fields": [
+										{
+											"name": "AccntCategory",
+											"type": "string"
+										},
+										{
+											"name": "AccountAssignmentNumber",
+											"type": {
+												"type": "fixed",
+												"name": "AccountAssignmentNumberType",
+												"size": 4
+											}
+										},
+										{
+											"name": "WBSElement",
+											"type": "string"
+										},
+										{
+											"name": "CostCenter",
+											"type": [
+												"null",
+												"string"
+											],
+											"default": null
+										},
+										{
+											"name": "InternalOrder",
+											"type": [
+												"null",
+												"string"
+											],
+											"default": null
+										},
+										{
+											"name": "GLAccount",
+											"type": "string"
+										},
+										{
+											"name": "Fund",
+											"type": "string"
+										},
+										{
+											"name": "MultipleAcctAssgmtDistrPercent",
+											"type": "double"
+										}
+									]
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}

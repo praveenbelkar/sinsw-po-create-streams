@@ -1,0 +1,358 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://education.nsw.gov.au/sinsw/purchase-order-create-v1.json",
+  "title": "Purchase Order Create",
+  "description": "purchase order create",
+  "type": "object",
+  "properties": {
+    "sourceHeader": {
+      "description": "Source header",
+      "type": "object",
+      "properties": {
+        "trackingId": {
+          "description": "PO acknowledgement message ID",
+          "type": "string",
+          "maxLength": 36
+        },
+        "creationDateTime": {
+          "description": "Date file/message is created (NSW Date/Time)",
+          "type": "string",
+          "format": "date-time"
+        },
+        "service": {
+          "description": "Service Identifier 'PO creation Acknowledgement'",
+          "type": "string",
+          "maxLength": 50
+        },
+        "user": {
+          "description": "User originating message. System user.",
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "required": [
+        "trackingId",
+        "creationDateTime",
+        "user"
+      ]
+    },
+    "poHeader": {
+      "description": "PO Header",
+      "type": "object",
+      "properties": {
+        "poHeaderName": {
+          "description": "Purchase order header name",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "vendor": {
+          "description": "Vendor name",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 10,
+          "pattern": "^\\S*$"
+        },
+        "companyCode": {
+          "description": "Company code",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^\\S*$"
+        },
+        "paymentTerms": {
+          "description": "Payment terms",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^\\S*$"
+        },
+        "porttContractNumber": {
+          "description": "Portt contract number",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 18,
+          "pattern": "^\\S*$"
+        },
+        "porttContractSegment": {
+          "description": "Portt contract segment",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^\\S*$"
+        },
+        "poNotSentToSupplier": {
+          "description": "Purchase order not sent to supplier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[YN]$"
+        },
+        "poCreator": {
+          "description": "Purchase order creator",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 40,
+          "pattern": "^\\S*$"
+        },
+        "requestor": {
+          "description": "Requestor",
+          "type": "object",
+          "properties": {
+            "requestorId": {
+              "description": "Requestor identifier",
+              "type": "string",
+              "minLength": 4,
+              "maxLength": 40,
+              "pattern": "^\\S*$"
+            },
+            "requestorPosition": {
+              "description": "Requestor position",
+              "type": "string",
+              "pattern": "^[0-9]{8,8}$"
+            }
+          },
+          "required": [
+            "requestorId"
+          ]
+        },
+        "recipient": {
+          "description": "Recipient",
+          "type": "object",
+          "properties": {
+            "recipientId": {
+              "description": "Recipient identifier",
+              "type": "string",
+              "minLength": 4,
+              "maxLength": 40,
+              "pattern": "^\\S*$"
+            },
+            "recipientPosition": {
+              "description": "Recipient position",
+              "type": "string",
+              "pattern": "^[0-9]{8,8}$"
+            }
+          },
+          "required": [
+            "recipientId"
+          ]
+        },
+        "approver": {
+          "description": "Approver",
+          "type": "object",
+          "properties": {
+            "approverId": {
+              "description": "Approver identifier",
+              "type": "string",
+              "minLength": 4,
+              "maxLength": 40,
+              "pattern": "^\\S*$"
+            },
+            "approverPosition": {
+              "description": "Approver position",
+              "type": "string",
+              "pattern": "^[0-9]{8,8}$"
+            }
+          },
+          "required": [
+            "approverId"
+          ]
+        }
+      },
+      "required": [
+        "poHeaderName",
+        "vendor",
+        "companyCode",
+        "porttContractNumber",
+        "porttContractSegment",
+        "poNotSentToSupplier",
+        "requestor",
+        "recipient",
+        "approver"
+      ]
+    },
+    "items": {
+      "description": "Line items",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "poLineItemNumber": {
+            "description": "PO line item number",
+            "type": "string",
+            "pattern": "^[0-9]{10,10}$"
+          },
+          "itemType": {
+            "description": "Item type",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4,
+            "pattern": "^\\S*$"
+          },
+          "description": {
+            "description": "Description",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "quantity": {
+            "description": "Quantity",
+            "type": "number",
+            "multipleOf": 0.001
+          },
+          "priceAmount": {
+            "description": "Price/Amount",
+            "type": "number",
+            "multipleOf": 0.01
+          },
+          "unit": {
+            "description": "Unit",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3,
+            "pattern": "^\\S*$"
+          },
+          "pricePerUnit": {
+            "description": "Price per unit",
+            "type": "integer"
+          },
+          "deliveryDate": {
+            "description": "Delivery date",
+            "type": "string",
+            "format": "date"
+          },
+          "validityFrom": {
+            "description": "Validity from",
+            "type": "string",
+            "format": "date"
+          },
+          "validityTo": {
+            "description": "Validity to",
+            "type": "string",
+            "format": "date"
+          },
+          "taxCode": {
+            "description": "Tax code",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "pattern": "^\\S*$"
+          },
+          "plant": {
+            "description": "Plant",
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 4,
+            "pattern": "^\\S*$"
+          },
+          "storageLocation": {
+            "description": "Storage location",
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 4,
+            "pattern": "^\\S*$"
+          },
+          "productCategory": {
+            "description": "Product category",
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 20,
+            "pattern": "^\\S*$"
+          },
+          "accounting": {
+            "description": "Accounting items",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "accountCategory": {
+                  "description": "Account category",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 5,
+                  "pattern": "^\\S*$"
+                },
+                "accountSequenceNumber": {
+                  "description": "Account sequence number",
+                  "type": "string",
+                  "pattern": "^[0-9]{4,4}$"
+                },
+                "wbs": {
+                  "description": "WBS",
+                  "type": "string",
+                  "minLength": 11,
+                  "maxLength": 24,
+                  "pattern": "^\\S*$"
+                },
+                "costCentre": {
+                  "description": "Cost centre",
+                  "type": "string",
+                  "minLength": 5,
+                  "maxLength": 10,
+                  "pattern": "^\\S*$"
+                },
+                "internalOrder": {
+                  "description": "Internal order",
+                  "type": "string",
+                  "minLength": 5,
+                  "maxLength": 12,
+                  "pattern": "^\\S*$"
+                },
+                "glAccount": {
+                  "description": "GL account",
+                  "type": "string",
+                  "minLength": 6,
+                  "maxLength": 10,
+                  "pattern": "^\\S*$"
+                },
+                "fund": {
+                  "description": "Fund code",
+                  "type": "string",
+                  "minLength": 4,
+                  "maxLength": 10,
+                  "pattern": "^\\S*$"
+                },
+                "distribution": {
+                  "description": "Distribution",
+                  "type": "number",
+                  "multipleOf": 0.01
+                }
+              },
+              "required": [
+                "accountCategory",
+                "accountSequenceNumber",
+                "wbs",
+                "glAccount",
+                "fund",
+                "distribution"
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "poLineItemNumber",
+          "itemType",
+          "description",
+          "quantity",
+          "priceAmount",
+          "unit",
+          "deliveryDate",
+          "validityFrom",
+          "validityTo",
+          "taxCode",
+          "plant",
+          "storageLocation",
+          "productCategory",
+          "accounting"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "sourceHeader",
+    "poHeader",
+    "items"
+  ]
+}
